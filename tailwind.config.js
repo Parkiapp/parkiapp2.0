@@ -20,4 +20,6 @@ export default {
     },
 
     plugins: [forms, typography],
+    require('@tailwindcss/forms'),
+    require('shadcn-ui/plugin')
 };

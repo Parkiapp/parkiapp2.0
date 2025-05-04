@@ -1,41 +1,14 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
-
-        <x-validation-errors class="mb-4" />
-
-        <div class="mt-2 mb-4 text-center">
-            <x-label class="text-4xl font-bold" value="{{ __('Restablecer tú cuenta ParkiAPP') }}">
-            </x-label>
-        </div>
-
-        <form method="POST" action="{{ route('password.update') }}">
-            @csrf
-
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
-            <div class="block">
-                <x-label for="email" value="{{ __('Correo electrónico') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Contraseña') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirmar Contraseña') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Restaurar Contraseña') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+@extends('layouts.app')
+@section('content')
+  <form method="POST" action="{{ route('password.update') }}" class="max-w-md mx-auto p-4">
+    @csrf
+    <input type="hidden" name="token" value="{{ \$token }}">
+    <h1 class="text-2xl font-bold mb-4">Ingresa nueva contraseña</h1>
+    <input name="email" type="email" required placeholder="Tu correo" class="w-full p-2 border rounded mb-2"/>
+    @error('email')<div class="text-red-600">{{ \$message }}</div>@enderror
+    <input name="password" type="password" required placeholder="Nueva contraseña" class="w-full p-2 border rounded mb-2"/>
+    @error('password')<div class="text-red-600">{{ \$message }}</div>@enderror
+    <input name="password_confirmation" type="password" required placeholder="Confirmar contraseña" class="w-full p-2 border rounded mb-4"/>
+    <button type="submit" class="w-full py-2 bg-purple-600 text-white rounded">Restablecer</button>
+  </form>
+@endsection

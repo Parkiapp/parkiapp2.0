@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+    @include('vendor.laravelpwa.meta')
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<script>window.VAPID_PUBLIC_KEY = '{{ env("VAPID_PUBLIC_KEY") }}';</script>
+<script>window.VAPID_PUBLIC_KEY = '{{ env("VAPID_PUBLIC_KEY") }}';</script>
         <title>{{ config('app.name', 'ParkiAPP') }}</title>
         <link rel="shortcut icon" href="images/logo_peq.png">
 

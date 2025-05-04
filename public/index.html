@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ParkiApp</title>
+
+  <!-- Theme y manifest -->
+  <meta name="theme-color" content="#531975" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icons/icon-192x192.png" type="image/png" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Animaciones AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #f4effa;
+    }
+  </style>
+
+  <script>
+    // Registro del service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/serviceworker.js')
+          .then(r => console.log('Service Worker registrado:', r.scope))
+          .catch(e => console.error('Error registrando SW:', e));
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      AOS.init();
+    });
+  </script>
+</head>
+
+<body class="flex flex-col justify-center items-center min-h-screen text-[#531975] bg-[#f0ebf4]">
+
+  <!-- Encabezado -->
+  <header class="text-center mt-8" data-aos="fade-down">
+    <img src="/icons/icon-192x192.png" alt="Logo ParkiApp" class="mx-auto w-24 h-24 rounded-lg shadow-xl" />
+    <h1 class="text-4xl font-semibold mt-4">ParkiApp</h1>
+    <p class="text-lg text-[#731176] mt-1">Safe car. Perfect day.</p>
+  </header>
+
+  <!-- CTA e Información -->
+  <section class="mt-6 px-4 max-w-md text-center" data-aos="fade-up">
+    <p class="text-sm text-gray-600 mb-4">
+      Encuentra parqueadero sin estrés. Instala ParkiApp como aplicación o usa la versión web.
+    </p>
+
+    <div class="flex flex-col gap-3 mb-6">
+      <button onclick="installPWA()" class="bg-[#731176] text-white py-3 px-6 rounded-full shadow-md hover:scale-105 transition">
+        Instalar App
+      </button>
+      <a href="https://play.google.com/store/apps/details?id=tuapp" class="text-sm underline">Descargar para Android</a>
+      <a href="https://apps.apple.com/app/idtuappid" class="text-sm underline">Descargar para iOS</a>
+    </div>
+  </section>
+
+  <!-- App embebida -->
+  <div class="w-full h-[60vh] px-4" data-aos="zoom-in">
+    <iframe src="/" class="w-full h-full rounded-lg border border-gray-300 shadow-sm" frameborder="0"></iframe>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-8 text-xs text-gray-500 text-center px-4">
+    <a href="/legal/terminos" class="underline">Términos y condiciones</a> ·
+    <a href="/legal/privacidad" class="underline">Política de privacidad</a>
+  </footer>
+
+  <!-- Instalación PWA -->
+  <script>
+    function installPWA() {
+      if (window.deferredPrompt) {
+        window.deferredPrompt.prompt();
+        window.deferredPrompt.userChoice.then(() => {
+          window.deferredPrompt = null;
+        });
+      } else {
+        alert("Instalación no disponible desde este navegador.");
+      }
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      window.deferredPrompt = e;
+      document.querySelector('button').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

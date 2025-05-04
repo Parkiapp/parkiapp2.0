@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ParkiApp</string>
+    <string name="title_activity_main">ParkiApp</string>
+    <string name="package_name">com.parkiapp.app</string>
+    <string name="custom_url_scheme">com.parkiapp.app</string>
+</resources>
