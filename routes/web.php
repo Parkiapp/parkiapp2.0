@@ -40,3 +40,18 @@ Route::middleware(['auth','role:parki_oferente'])->prefix('parki-oferente')->gro
     Route::get('/legal',         [App\Http\Controllers\Parkioferente\LegalCenterController::class,   'index'])->name('ofertente.legal');
     Route::get('/legal/pqrs',    [App\Http\Controllers\Parkioferente\LegalCenterController::class,   'pqrsHistory'])->name('ofertente.legal.pqrs');
 });
+
+// — Auth Recuperación de contraseña —
+Route::get('password/forgot', [App\Http\Controllers\Auth\ForgotPasswordController::class,'__invoke'])->name('password.request');
+Route::post('password/email', [App\Http\Controllers\Auth\ForgotPasswordController::class,'sendLink'])->name('password.email');
+Route::get('password/reset/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class,'__invoke'])->name('password.reset');
+Route::post('password/reset', [App\Http\Controllers\Auth\ResetPasswordController::class,'reset'])->name('password.update');
+
+// — Parkiador: Historial de reservas —
+Route::resource('parkidor/history', App\Http\Controllers\Parkiador\ReservationHistoryController::class)->only(['index','show']);
+
+// — Parkiador: Métodos de pago —
+Route::resource('parkidor/payments', App\Http\Controllers\Parkiador\PaymentMethodsController::class);
+
+// — Parkiador: Mis vehículos —
+Route::resource('parkidor/vehicles', App\Http\Controllers\Parkiador\VehicleController::class);

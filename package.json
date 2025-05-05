@@ -22,6 +22,8 @@
         "@capacitor/cli": "^7.2.0",
         "@capacitor/core": "^7.2.0",
         "@capacitor/ios": "^7.2.0",
+        "@headlessui/vue": "^1.7.23",
+        "alpinejs": "^3.14.9",
         "chart.js": "^4.4.9",
         "leaflet": "^1.9.4",
         "shadcn-ui": "^0.9.5",
