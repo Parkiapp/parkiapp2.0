@@ -1,101 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ParkiApp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ParkiApp – Iniciando experiencia…</title>
 
-  <!-- Theme y manifest -->
-  <meta name="theme-color" content="#531975" />
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="icon" href="/icons/icon-192x192.png" type="image/png" />
+  <!-- Fallback meta‑refresh por accesibilidad -->
+  <meta http-equiv="refresh" content="6; URL=/login">
+  <meta name="theme-color" content="#531975">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Tipografía principal -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind (modo CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Animaciones AOS -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
   <style>
-    body {
-      font-family: 'Outfit', sans-serif;
-      background-color: #f4effa;
+    :root{
+      --parkia-primary:#531975;
+      --parkia-secondary:#731176;
+      --parkia-light:#D5CAE2;
     }
+    body{
+      font-family:'Raleway',sans-serif;
+      height:100dvh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:radial-gradient(circle at 20% 30%,var(--parkia-secondary) 0%,var(--parkia-primary) 45%,#2a0d40 100%);
+      color:#FFFFFF;
+      overflow:hidden;
+    }
+    /* Pulso luminoso del logo */
+    .pulse{animation:pulseGlow 3.6s ease-in-out infinite;}
+    @keyframes pulseGlow{
+      0%,100%{transform:scale(1);filter:drop-shadow(0 0 0px var(--parkia-light));}
+      50%{transform:scale(1.06);filter:drop-shadow(0 0 22px var(--parkia-light));}
+    }
+    /* Loader giro */
+    .loader{
+      width:72px;height:72px;
+      border:5px solid rgba(255,255,255,.25);
+      border-top-color:var(--parkia-light);
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg);}}
   </style>
 
   <script>
-    // Registro del service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/serviceworker.js')
-          .then(r => console.log('Service Worker registrado:', r.scope))
-          .catch(e => console.error('Error registrando SW:', e));
-      });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      AOS.init();
+    // Redirección suave tras animación
+    window.addEventListener('load',()=>{
+      // 4.5 s permite 1,25 ciclos completos de pulso + spinner
+      setTimeout(()=>window.location.assign('/login'),4500);
     });
   </script>
 </head>
-
-<body class="flex flex-col justify-center items-center min-h-screen text-[#531975] bg-[#f0ebf4]">
-
-  <!-- Encabezado -->
-  <header class="text-center mt-8" data-aos="fade-down">
-    <img src="/icons/icon-192x192.png" alt="Logo ParkiApp" class="mx-auto w-24 h-24 rounded-lg shadow-xl" />
-    <h1 class="text-4xl font-semibold mt-4">ParkiApp</h1>
-    <p class="text-lg text-[#731176] mt-1">Safe car. Perfect day.</p>
-  </header>
-
-  <!-- CTA e Información -->
-  <section class="mt-6 px-4 max-w-md text-center" data-aos="fade-up">
-    <p class="text-sm text-gray-600 mb-4">
-      Encuentra parqueadero sin estrés. Instala ParkiApp como aplicación o usa la versión web.
-    </p>
-
-    <div class="flex flex-col gap-3 mb-6">
-      <button onclick="installPWA()" class="bg-[#731176] text-white py-3 px-6 rounded-full shadow-md hover:scale-105 transition">
-        Instalar App
-      </button>
-      <a href="https://play.google.com/store/apps/details?id=tuapp" class="text-sm underline">Descargar para Android</a>
-      <a href="https://apps.apple.com/app/idtuappid" class="text-sm underline">Descargar para iOS</a>
-    </div>
-  </section>
-
-  <!-- App embebida -->
-  <div class="w-full h-[60vh] px-4" data-aos="zoom-in">
-    <iframe src="/" class="w-full h-full rounded-lg border border-gray-300 shadow-sm" frameborder="0"></iframe>
+<body>
+  <div class="text-center space-y-6 select-none">
+    <!-- Logo principal -->
+    <!-- Asegúrate de que la ruta sea correcta en producción -->
+    <img src="images/parkiapplogo.png" alt="ParkiApp" class="w-24 h-24 mx-auto pulse"/>
+    <p class="text-xl sm:text-2xl font-semibold tracking-wide">Bienvenido a&nbsp;ParkiApp</p>
+    <div class="loader mx-auto"></div>
+    <p class="text-sm opacity-80">Redirigiendo a tu experiencia segura…</p>
+    <noscript>
+      <p class="mt-6 text-base font-medium">
+        JavaScript está deshabilitado. <a href="/login" class="underline font-semibold">Haz clic aquí para continuar</a>
+      </p>
+    </noscript>
   </div>
-
-  <!-- Footer -->
-  <footer class="mt-8 text-xs text-gray-500 text-center px-4">
-    <a href="/legal/terminos" class="underline">Términos y condiciones</a> ·
-    <a href="/legal/privacidad" class="underline">Política de privacidad</a>
-  </footer>
-
-  <!-- Instalación PWA -->
-  <script>
-    function installPWA() {
-      if (window.deferredPrompt) {
-        window.deferredPrompt.prompt();
-        window.deferredPrompt.userChoice.then(() => {
-          window.deferredPrompt = null;
-        });
-      } else {
-        alert("Instalación no disponible desde este navegador.");
-      }
-    }
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      window.deferredPrompt = e;
-      document.querySelector('button').style.display = 'block';
-    });
-  </script>
 </body>
 </html>

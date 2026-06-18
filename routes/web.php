@@ -55,3 +55,10 @@ Route::resource('parkidor/payments', App\Http\Controllers\Parkiador\PaymentMetho
 
 // — Parkiador: Mis vehículos —
 Route::resource('parkidor/vehicles', App\Http\Controllers\Parkiador\VehicleController::class);
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/login', function () {
+    return view('auth.login');
+});
+

@@ -1,5 +1,15 @@
 {
   "appId": "com.parkiapp.app",
   "appName": "ParkiApp",
-  "webDir": "public"
+  "webDir": "public",
+"server": {
+  "url": "https://ce1f-1234-5678-xxxx.ngrok-free.app",
+  "cleartext": false
+  "iosScheme": "https"
+  "androidScheme": "https"
+  "allowNavigation": [
+    "ce1f-2800-484-4e84-5100-c419-fe5.ngrok-free.app"
+  ]
 }
+}
+
